@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Identity", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5F97E5EF-B1ED-476D-AE2E-DB2BFDCF0A25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Application", "tests\ExpenseTracker.Application\ExpenseTracker.Application.csproj", "{58F99380-B0F7-4A08-9DF6-E38163E0D553}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Application", "tests\ExpenseTracker.Application.UnitTests\ExpenseTracker.Application.UnitTests.csproj", "{58F99380-B0F7-4A08-9DF6-E38163E0D553}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,6 @@
 using ExpenseTracker.Domain;
+using ExpenseTracker.Domain.Common;
 using Microsoft.EntityFrameworkCore;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Driver;
 using MongoDB.EntityFrameworkCore.Extensions;
 
 namespace ExpenseTracker.Persistence.DatabaseContext;
@@ -22,6 +20,17 @@ public class ExpenseDbContext(DbContextOptions<ExpenseDbContext> options) : DbCo
 
   public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
   {
+    foreach (var entry in base.ChangeTracker.Entries<BaseEntity>().Where(x => x.State is EntityState.Added or EntityState.Modified))
+    {
+      entry.Entity.UpdatedDate = DateTime.UtcNow;
+      // update Entity updatedBy
+
+      if (entry.State != EntityState.Added) continue;
+
+      entry.Entity.CreatedDate = DateTime.UtcNow;
+      // update Entity createdBy
+    }
+
     return base.SaveChangesAsync(cancellationToken);
   }
 }
