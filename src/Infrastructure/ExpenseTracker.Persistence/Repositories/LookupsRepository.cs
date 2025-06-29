@@ -1,33 +1,28 @@
 using ExpenseTracker.Application.Contracts.Persistence;
+using ExpenseTracker.Domain;
 using ExpenseTracker.Domain.Common;
 using ExpenseTracker.Persistence.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTracker.Persistence.Repositories;
 
-public class LookupsRepository<T>(ExpenseDbContext dbContext) : IGenericRepository<T> where T : BaseEntity
+public class LookupsRepository(ExpenseDbContext dbContext) : GenericRepository<Lookup>(dbContext), ILookupsRepository
 {
-    public async Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default)
+    public async Task<bool> IsUniqueLookup(Lookup newLookup, CancellationToken cancellation = default)
     {
-        throw new NotImplementedException();
+        if (DbContext.Lookups == null) return true;
+        var existingLookup = await DbContext.Lookups.AsNoTracking().FirstOrDefaultAsync(x =>
+            x.Code.ToUpper() == newLookup.Code.ToUpper() && x.LookupType.ToUpper() == newLookup.LookupType.ToUpper(), cancellation);
+
+        return existingLookup == null;
     }
 
-    public async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<Lookup>> GetLookupsByType(string lookupTypeCode, CancellationToken cancellation = default)
     {
-        throw new NotImplementedException();
-    }
+        if (DbContext.Lookups == null) return new List<Lookup>();
+        var lookups = await DbContext.Lookups.AsNoTracking()
+            .Where(x => x.LookupType.ToUpper() == lookupTypeCode.ToUpper()).ToListAsync(cancellation);
 
-    public async Task<T> DeleteAsync(T entity, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellation = default)
-    {
-        throw new NotImplementedException();
+        return lookups;
     }
 }
