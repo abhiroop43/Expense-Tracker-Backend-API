@@ -1,7 +1,8 @@
 # Expense Tracker Backend API 🙄💸
 
 Welcome to the **ExpenseTracker** backend API – because who _doesn't_ want to track every penny they spend?
-Built with .NET (because, obviously), using Clean Architecture, DDD, and CQRS – because we like our code as complicated as our finances.
+Built with .NET (because, obviously), using Clean Architecture, DDD, and CQRS – because we like our code as complicated
+as our finances.
 MongoDB is our database of choice, because SQL is just too mainstream. 😏
 
 ## Features

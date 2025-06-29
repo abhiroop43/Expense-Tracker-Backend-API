@@ -18,6 +18,8 @@
         <ProjectReference Include="..\ExpenseTracker.Domain\ExpenseTracker.Domain.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Features\Lookup\Commands\"/>
+        <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+            <HintPath>..\..\..\..\..\..\.dotnet\packs\Microsoft.AspNetCore.App.Ref\8.0.17\ref\net8.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+        </Reference>
     </ItemGroup>
 </Project>

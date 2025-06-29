@@ -9,6 +9,7 @@ namespace ExpenseTracker.Persistence.Repositories;
 public class GenericRepository<T>(ExpenseDbContext dbContext) : IGenericRepository<T> where T : BaseEntity
 {
     protected readonly ExpenseDbContext DbContext = dbContext;
+
     public async Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default)
     {
         await DbContext.AddAsync(entity, cancellationToken);

@@ -10,17 +10,18 @@ namespace ExpenseTracker.Persistence;
 
 public static class PersistenceServiceRegistrations
 {
-  public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
-  {
-    var connectionString = configuration.GetConnectionString("ExpenseTrackerConnection");
-    var databaseName = configuration.GetSection("DatabaseName").Value;
-    var mongoClient = new MongoClient(connectionString);
+    public static IServiceCollection AddPersistenceServices(this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("ExpenseTrackerConnection");
+        var databaseName = configuration.GetSection("DatabaseName").Value;
+        var mongoClient = new MongoClient(connectionString);
 
-    services.AddDbContext<ExpenseDbContext>(options => options.UseMongoDB(mongoClient, databaseName!));
+        services.AddDbContext<ExpenseDbContext>(options => options.UseMongoDB(mongoClient, databaseName!));
 
-    services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-    services.AddScoped<ILookupsRepository, LookupsRepository>();
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped<ILookupsRepository, LookupsRepository>();
 
-    return services;
-  }
+        return services;
+    }
 }

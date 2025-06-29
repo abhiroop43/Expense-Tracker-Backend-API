@@ -33,6 +33,7 @@ public class ExpenseDbContext(DbContextOptions<ExpenseDbContext> options) : DbCo
             entry.Entity.CreatedDate = DateTime.UtcNow;
             // update Entity createdBy
         }
+        Database.AutoTransactionBehavior = AutoTransactionBehavior.Never;
 
         return base.SaveChangesAsync(cancellationToken);
     }
