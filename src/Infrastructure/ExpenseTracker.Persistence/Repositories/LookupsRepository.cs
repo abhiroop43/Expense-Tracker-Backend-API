@@ -1,6 +1,5 @@
 using ExpenseTracker.Application.Contracts.Persistence;
 using ExpenseTracker.Domain;
-using ExpenseTracker.Domain.Common;
 using ExpenseTracker.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,12 +7,13 @@ namespace ExpenseTracker.Persistence.Repositories;
 
 public class LookupsRepository(ExpenseDbContext dbContext) : GenericRepository<Lookup>(dbContext), ILookupsRepository
 {
-    public async Task<bool> IsUniqueLookup(Lookup newLookup, CancellationToken cancellation = default)
+    public async Task<bool> IsUniqueLookup(string lookupCode, string lookupTypeCode,
+        CancellationToken cancellation = default)
     {
         if (DbContext.Lookups == null) return true;
         var existingLookup = await DbContext.Lookups.AsNoTracking().FirstOrDefaultAsync(x =>
-                x.Code.ToUpper() == newLookup.Code.ToUpper() &&
-                x.LookupType.ToUpper() == newLookup.LookupType.ToUpper(),
+                x.Code.ToUpper() == lookupCode.ToUpper() &&
+                x.LookupType.ToUpper() == lookupTypeCode.ToUpper(),
             cancellation);
 
         return existingLookup == null;

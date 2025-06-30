@@ -13,7 +13,9 @@ public class ExpenseDbContext(DbContextOptions<ExpenseDbContext> options) : DbCo
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // this will not work for non-relational databases
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ExpenseDbContext).Assembly);
+        
         modelBuilder.Entity<Lookup>().ToCollection("lookups");
         modelBuilder.Entity<Wallet>().ToCollection("wallets");
         modelBuilder.Entity<Transaction>().ToCollection("transactions");
