@@ -26,9 +26,9 @@ public class LookupsController(IMediator mediator) : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetLookupById([FromRoute] ObjectId id)
+    public async Task<IActionResult> GetLookupById([FromRoute] string id)
     {
-        var lookup = await mediator.Send(new GetLookupByIdQuery { Id = id });
+        var lookup = await mediator.Send(new GetLookupByIdQuery { Id = ObjectId.Parse(id) });
         return Ok(lookup);
     }
 
@@ -67,9 +67,9 @@ public class LookupsController(IMediator mediator) : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteLookup([FromRoute] ObjectId id)
+    public async Task<IActionResult> DeleteLookup([FromRoute] string id)
     {
-        await mediator.Send(new DeleteLookupCommand { Id = id });
+        await mediator.Send(new DeleteLookupCommand { Id = ObjectId.Parse(id) });
         return NoContent();
     }
 }

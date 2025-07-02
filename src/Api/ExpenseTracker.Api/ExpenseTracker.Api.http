@@ -1,6 +1,12 @@
-@ExpenseTracker.Api_HostAddress = http://localhost:5064
+@Api_HostAddress = http://localhost:5064
+@LookupCode = TRANSACTION_CATEGORY
 
-GET {{ExpenseTracker.Api_HostAddress}}/weatherforecast/
+GET {{Api_HostAddress}}/api/Lookups/getByCode/{{LookupCode}}
 Accept: application/json
 
 ###
+
+@LookupId = 68621b20b112cf7303639046
+
+GET {{Api_HostAddress}}/api/Lookups/getByCode/{{LookupId}}
+Accept: application/json
