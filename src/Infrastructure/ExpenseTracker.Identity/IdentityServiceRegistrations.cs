@@ -1,5 +1,6 @@
 using System.Text;
-using AspNetCore.Identity.MongoDbCore.Models;
+using AspNetCore.Identity.MongoDbCore.Extensions;
+using AspNetCore.Identity.MongoDbCore.Infrastructure;
 using DotNetEnv;
 using ExpenseTracker.Application.Contracts.Identity;
 using ExpenseTracker.Application.Models.Identity;
@@ -25,12 +26,51 @@ public static class IdentityServiceRegistrations
         var connectionString = configuration.GetConnectionString("ExpenseTrackerConnection");
         var databaseName = configuration.GetSection("DatabaseName").Value;
 
-        services.AddIdentity<ApplicationUser, MongoIdentityRole<ObjectId>>()
-            .AddMongoDbStores<ApplicationUser, MongoIdentityRole<ObjectId>, ObjectId>
-            (
-                connectionString, databaseName
-            )
+        // services.AddIdentity<ApplicationUser, ApplicationRole>()
+        //     .AddMongoDbStores<ApplicationUser, ApplicationRole, ObjectId>
+        //     (
+        //         connectionString, databaseName
+        //     )
+        //     .AddDefaultTokenProviders();
+
+        // MongoDB.Bson.Serialization.BsonSerializer.RegisterSerializer(
+        //     typeof(Guid),
+        //     new MongoDB.Bson.Serialization.Serializers.GuidSerializer(GuidRepresentation.Standard)
+        // );
+
+        // BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V2;
+
+        var mongoDbIdentityConfiguration = new MongoDbIdentityConfiguration
+        {
+            MongoDbSettings = new MongoDbSettings
+            {
+                ConnectionString = connectionString,
+                DatabaseName = databaseName
+            },
+            IdentityOptionsAction = options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+
+                // ApplicationUser settings
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@.-_";
+            }
+        };
+
+        services.ConfigureMongoDbIdentity<ApplicationUser, ApplicationRole, ObjectId>(mongoDbIdentityConfiguration)
             .AddDefaultTokenProviders();
+
+        services.AddHttpContextAccessor();
+        services.AddScoped<SignInManager<ApplicationUser>>();
 
         services.AddTransient<IAuthService, AuthService>();
 

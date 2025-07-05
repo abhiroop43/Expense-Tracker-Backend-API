@@ -1,8 +1,11 @@
 using ExpenseTracker.Application;
 using ExpenseTracker.Identity;
 using ExpenseTracker.Persistence;
+using MongoDB.Bson;
 
 var builder = WebApplication.CreateBuilder(args);
+BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V2;
+
 
 // Add services to the container.
 builder.Services.AddApplicationServices();
