@@ -16,7 +16,9 @@ public class LookupsRepository(ExpenseDbContext dbContext) : GenericRepository<L
                 x.LookupType.ToUpper() == lookupTypeCode.ToUpper(),
             cancellation);
 
-        return existingLookup == null;
+        if (existingLookup == null)
+            return true;
+        return false;
     }
 
     public async Task<IReadOnlyList<Lookup>> GetLookupsByType(string lookupTypeCode,

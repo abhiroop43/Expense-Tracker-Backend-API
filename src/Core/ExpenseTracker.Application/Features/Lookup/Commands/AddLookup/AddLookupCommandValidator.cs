@@ -35,6 +35,7 @@ public class AddLookupCommandValidator : AbstractValidator<AddLookupCommand>
 
     private async Task<bool> UniqueLookup(AddLookupCommand command, CancellationToken cancellationToken)
     {
-        return await _lookupsRepository.IsUniqueLookup(command.Code, command.LookupType, cancellationToken);
+        var isUnique = await _lookupsRepository.IsUniqueLookup(command.Code, command.LookupType, cancellationToken);
+        return isUnique;
     }
 }
