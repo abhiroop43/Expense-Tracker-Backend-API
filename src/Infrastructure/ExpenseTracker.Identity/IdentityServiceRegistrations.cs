@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using AspNetCore.Identity.MongoDbCore.Extensions;
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
@@ -25,20 +26,6 @@ public static class IdentityServiceRegistrations
 
         var connectionString = configuration.GetConnectionString("ExpenseTrackerConnection");
         var databaseName = configuration.GetSection("DatabaseName").Value;
-
-        // services.AddIdentity<ApplicationUser, ApplicationRole>()
-        //     .AddMongoDbStores<ApplicationUser, ApplicationRole, ObjectId>
-        //     (
-        //         connectionString, databaseName
-        //     )
-        //     .AddDefaultTokenProviders();
-
-        // MongoDB.Bson.Serialization.BsonSerializer.RegisterSerializer(
-        //     typeof(Guid),
-        //     new MongoDB.Bson.Serialization.Serializers.GuidSerializer(GuidRepresentation.Standard)
-        // );
-
-        // BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V2;
 
         var mongoDbIdentityConfiguration = new MongoDbIdentityConfiguration
         {
@@ -73,6 +60,8 @@ public static class IdentityServiceRegistrations
         services.AddScoped<SignInManager<ApplicationUser>>();
 
         services.AddTransient<IAuthService, AuthService>();
+
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         services.AddAuthentication(options =>
             {
