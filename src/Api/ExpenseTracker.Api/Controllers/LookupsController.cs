@@ -1,3 +1,4 @@
+using ExpenseTracker.Api.Attributes;
 using ExpenseTracker.Application.Features.Lookup.Commands.AddLookup;
 using ExpenseTracker.Application.Features.Lookup.Commands.DeleteLookup;
 using ExpenseTracker.Application.Features.Lookup.Commands.SeedLookups;
@@ -5,6 +6,7 @@ using ExpenseTracker.Application.Features.Lookup.Commands.UpdateLookup;
 using ExpenseTracker.Application.Features.Lookup.Queries.GetLookupById;
 using ExpenseTracker.Application.Features.Lookup.Queries.GetLookupsByType;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
@@ -12,6 +14,7 @@ namespace ExpenseTracker.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class LookupsController(IMediator mediator) : ControllerBase
 {
     [HttpGet("getByCode/{code}")]
@@ -36,6 +39,7 @@ public class LookupsController(IMediator mediator) : ControllerBase
     [HttpPost("seed")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [AllowedRoles("Administrator")]
     public async Task<IActionResult> SeedLookups()
     {
         await mediator.Send(new SeedLookupsCommand());
@@ -46,10 +50,11 @@ public class LookupsController(IMediator mediator) : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [AllowedRoles("Administrator")]
     public async Task<IActionResult> AddNewLookup([FromBody] AddLookupCommand command)
     {
-        await mediator.Send(command);
-        return Created(nameof(GetByLookupTypeCode), null);
+        var newLookupId = await mediator.Send(command);
+        return Created(nameof(GetLookupById), new { Id = newLookupId.ToString() });
     }
 
     // should be restricted only to Admin roles
@@ -57,6 +62,7 @@ public class LookupsController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [AllowedRoles("Administrator")]
     public async Task<IActionResult> UpdateLookup([FromBody] UpdateLookupCommand command)
     {
         await mediator.Send(command);
@@ -67,6 +73,7 @@ public class LookupsController(IMediator mediator) : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [AllowedRoles("Administrator")]
     public async Task<IActionResult> DeleteLookup([FromRoute] string id)
     {
         await mediator.Send(new DeleteLookupCommand { Id = ObjectId.Parse(id) });

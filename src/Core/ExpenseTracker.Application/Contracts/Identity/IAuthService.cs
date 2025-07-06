@@ -6,4 +6,5 @@ public interface IAuthService
 {
     Task<AuthResponse> LoginAsync(AuthRequest request);
     Task<RegistrationResponse> RegisterAsync(RegistrationRequest request);
+    bool IsRoleInJwt(string token, string role);
 }

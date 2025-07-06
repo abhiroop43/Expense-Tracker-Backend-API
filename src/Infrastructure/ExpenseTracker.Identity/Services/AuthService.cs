@@ -77,6 +77,16 @@ public class AuthService(
         return new RegistrationResponse { UserId = user.Id.ToString() };
     }
 
+    public bool IsRoleInJwt(string token, string role)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+
+        return jwtToken.Claims
+            .Where(c => c.Type == ClaimTypes.Role)
+            .Any(c => c.Value == role);
+    }
+
     private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
     {
         var userClaims = await userManager.GetClaimsAsync(user);
