@@ -1,0 +1,14 @@
+[{
+  "_id": {
+    "$oid": "686a01dd2c1568e53ac7ac0e"
+  },
+  "Name": "Administrator",
+  "NormalizedName": "ADMINISTRATOR"
+},
+{
+  "_id": {
+    "$oid": "686a021c2c1568e53ac7ac0f"
+  },
+  "Name": "User",
+  "NormalizedName": "USER"
+}]

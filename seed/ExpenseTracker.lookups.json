@@ -1,0 +1,170 @@
+[{
+  "_id": {
+    "$oid": "6868cbd0ff56e95d62420150"
+  },
+  "Code": "INC",
+  "CreatedBy": null,
+  "CreatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  },
+  "Description": "Income",
+  "LookupType": "TRANSACTION_TYPE",
+  "Metadata": null,
+  "UpdatedBy": null,
+  "UpdatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6868cbd0ff56e95d62420151"
+  },
+  "Code": "EXP",
+  "CreatedBy": null,
+  "CreatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  },
+  "Description": "Expense",
+  "LookupType": "TRANSACTION_TYPE",
+  "Metadata": null,
+  "UpdatedBy": null,
+  "UpdatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6868cbd0ff56e95d62420152"
+  },
+  "Code": "HLT",
+  "CreatedBy": null,
+  "CreatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  },
+  "Description": "Health",
+  "LookupType": "TRANSACTION_CATEGORY",
+  "Metadata": null,
+  "UpdatedBy": null,
+  "UpdatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6868cbd0ff56e95d62420153"
+  },
+  "Code": "CLT",
+  "CreatedBy": null,
+  "CreatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  },
+  "Description": "Clothing",
+  "LookupType": "TRANSACTION_CATEGORY",
+  "Metadata": null,
+  "UpdatedBy": null,
+  "UpdatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6868cbd0ff56e95d62420154"
+  },
+  "Code": "SAL",
+  "CreatedBy": null,
+  "CreatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  },
+  "Description": "Salary",
+  "LookupType": "TRANSACTION_CATEGORY",
+  "Metadata": null,
+  "UpdatedBy": null,
+  "UpdatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6868cbd0ff56e95d62420155"
+  },
+  "Code": "SAV",
+  "CreatedBy": null,
+  "CreatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  },
+  "Description": "Savings",
+  "LookupType": "TRANSACTION_CATEGORY",
+  "Metadata": null,
+  "UpdatedBy": null,
+  "UpdatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6868cbd0ff56e95d62420156"
+  },
+  "Code": "DIN",
+  "CreatedBy": null,
+  "CreatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  },
+  "Description": "Dining",
+  "LookupType": "TRANSACTION_CATEGORY",
+  "Metadata": null,
+  "UpdatedBy": null,
+  "UpdatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6868cbd0ff56e95d62420157"
+  },
+  "Code": "PRL",
+  "CreatedBy": null,
+  "CreatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  },
+  "Description": "Personal",
+  "LookupType": "TRANSACTION_CATEGORY",
+  "Metadata": null,
+  "UpdatedBy": null,
+  "UpdatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6868cbd0ff56e95d62420158"
+  },
+  "Code": "INS",
+  "CreatedBy": null,
+  "CreatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  },
+  "Description": "Insurance",
+  "LookupType": "TRANSACTION_CATEGORY",
+  "Metadata": null,
+  "UpdatedBy": null,
+  "UpdatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6868cbd0ff56e95d62420159"
+  },
+  "Code": "OTH",
+  "CreatedBy": null,
+  "CreatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  },
+  "Description": "Others",
+  "LookupType": "TRANSACTION_CATEGORY",
+  "Metadata": null,
+  "UpdatedBy": null,
+  "UpdatedDate": {
+    "$date": "2025-07-05T06:53:04.264Z"
+  }
+}]

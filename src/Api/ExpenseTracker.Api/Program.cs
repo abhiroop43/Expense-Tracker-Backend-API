@@ -4,7 +4,10 @@ using ExpenseTracker.Persistence;
 using MongoDB.Bson;
 
 var builder = WebApplication.CreateBuilder(args);
+
+#pragma warning disable CS0618 // due to AspNetCore.Identity.MongoDbCore
 BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V2;
+#pragma warning restore CS0618
 
 
 // Add services to the container.

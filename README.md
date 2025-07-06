@@ -18,19 +18,26 @@ MongoDB is our database of choice, because SQL is just too mainstream. 😏
 1. Clone this repo. Or don’t. I’m not your boss.
 2. Install .NET. If you don’t have it, what are you even doing here?
 3. Make sure MongoDB is running. Or just hope for the best.
-4. Restore the dependencies:
+4. Manually create these collections in MongoDB, because EF Core migrations are apparently too cool for NoSQL (for now):
+   - lookups
+   - wallets
+   - transactions
+   - applicationUsers
+   - applicationRoles
+5. Import the data for `lookups`, `applicationRoles`, and `applicationUsers` from the `seed` directory. Yes, by hand. Automation is overrated anyway.
+6. Restore the dependencies:
 
    ```bash
    dotnet restore
    ```
 
-5. Run the API:
+7. Run the API:
 
    ```bash
    dotnet run
    ```
 
-6. Watch as your expenses are tracked with the power of modern software architecture. Or at least, pretend they are.
+8. Watch as your expenses are tracked with the power of modern software architecture. Or at least, pretend they are.
 
 ## Why Clean Architecture?
 

@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "686a0280b737d67126d6c684"
+  },
+  "UserName": "admin@abhiroopsantra.dev",
+  "NormalizedUserName": "ADMIN@ABHIROOPSANTRA.DEV",
+  "Email": "admin@abhiroopsantra.dev",
+  "NormalizedEmail": "ADMIN@ABHIROOPSANTRA.DEV",
+  "EmailConfirmed": true,
+  "PasswordHash": "AQAAAAIAAYagAAAAEN0PrGKkG6vbl82Ax8BziJ6YAHce83kx34+QXNU5kw952y6mNFCdo61siXPp/HhwOQ==",
+  "SecurityStamp": "3B7JNVO3U42E3HYVIOASIIFUYLYPRTMD",
+  "ConcurrencyStamp": "85ed888a-1519-4ea3-9ba9-59da63fd47e3",
+  "PhoneNumber": null,
+  "PhoneNumberConfirmed": false,
+  "TwoFactorEnabled": false,
+  "LockoutEnd": null,
+  "LockoutEnabled": true,
+  "AccessFailedCount": 0,
+  "Version": 1,
+  "CreatedOn": {
+    "$date": "2025-07-06T04:58:40.496Z"
+  },
+  "Claims": [],
+  "Roles": [
+    {
+      "$oid": "686a01dd2c1568e53ac7ac0e"
+    }
+  ],
+  "Logins": [],
+  "Tokens": [],
+  "FirstName": "Admin",
+  "LastName": "User"
+}]
