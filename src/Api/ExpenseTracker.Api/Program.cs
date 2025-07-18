@@ -1,5 +1,6 @@
 using ExpenseTracker.Application;
 using ExpenseTracker.Identity;
+using ExpenseTracker.Infrastructure;
 using ExpenseTracker.Persistence;
 using MongoDB.Bson;
 
@@ -14,6 +15,7 @@ BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V2;
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddInfrastructureServices();
 
 builder.Services.AddControllers();
 

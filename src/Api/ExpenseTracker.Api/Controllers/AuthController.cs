@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseTracker.Api.Controllers;
 
+[ApiController]
+[Route("api/[controller]")]
 public class AuthController(IAuthService authService) : ControllerBase
 {
     [HttpPost("login")]
