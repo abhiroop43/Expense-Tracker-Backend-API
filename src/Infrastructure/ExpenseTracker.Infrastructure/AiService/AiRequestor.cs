@@ -7,13 +7,13 @@ using OpenAI.Chat;
 
 namespace ExpenseTracker.Infrastructure.AIService;
 
-public class AIRequestor : IAIRequestor
+public class AiRequestor : IAiRequestor
 {
     private readonly AzureOpenAIClient _azureClient;
     private readonly string _deploymentName;
     private readonly ChatCompletionOptions _requestOptions;
 
-    public AIRequestor()
+    public AiRequestor()
     {
         Env.TraversePath().Load();
         _deploymentName = "gpt-4.1-nano";

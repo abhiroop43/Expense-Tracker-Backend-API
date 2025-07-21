@@ -8,7 +8,7 @@ namespace ExpenseTracker.Api.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class AiController(IAIRequestor aiRequestor) : ControllerBase
+public class AiController(IAiRequestor aiRequestor) : ControllerBase
 {
     [HttpGet("suggestion")]
     [ProducesResponseType(StatusCodes.Status200OK)]

@@ -8,7 +8,7 @@ public static class InfrastructureServiceRegistrations
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
-        services.AddTransient<IAIRequestor, AIRequestor>();
+        services.AddTransient<IAiRequestor, AiRequestor>();
         return services;
     }
 }
