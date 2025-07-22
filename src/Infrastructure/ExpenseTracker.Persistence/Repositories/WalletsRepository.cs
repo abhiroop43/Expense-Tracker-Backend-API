@@ -1,38 +1,20 @@
 using ExpenseTracker.Application.Contracts.Persistence;
 using ExpenseTracker.Domain;
-using MongoDB.Bson;
+using ExpenseTracker.Persistence.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTracker.Persistence.Repositories;
 
-public class WalletsRepository : IWalletsRepository
+public class WalletsRepository(ExpenseDbContext dbContext) : GenericRepository<Wallet>(dbContext), IWalletsRepository
 {
-    public async Task<Wallet> CreateAsync(Wallet entity, CancellationToken cancellationToken = default)
+    public async Task<bool> IsUniqueWalletName(string name, CancellationToken cancellation = default)
     {
-        throw new NotImplementedException();
-    }
+        if (DbContext.Wallets == null) return true;
 
-    public async Task<Wallet> UpdateAsync(Wallet entity, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
+        // check for CreatedBy user also, should be unique for the same user
 
-    public async Task<Wallet> DeleteAsync(Wallet entity, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
+        var wallet = await DbContext.Wallets.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower(), cancellation);
 
-    public async Task<Wallet?> GetByIdAsync(ObjectId id, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<IReadOnlyList<Wallet>> GetAllAsync(CancellationToken cancellation = default)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<bool> IsUniqueWalletName(string name, CancellationToken cancellation)
-    {
-        throw new NotImplementedException();
+        return wallet == null;
     }
 }

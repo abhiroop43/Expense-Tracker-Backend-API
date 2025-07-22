@@ -4,5 +4,5 @@ namespace ExpenseTracker.Application.Contracts.Persistence;
 
 public interface IWalletsRepository : IGenericRepository<Wallet>
 {
-    Task<bool> IsUniqueWalletName(string name, CancellationToken cancellation);
+    Task<bool> IsUniqueWalletName(string name, CancellationToken cancellation = default);
 }
