@@ -23,10 +23,4 @@
             <HintPath>..\..\..\..\..\..\.dotnet\packs\Microsoft.AspNetCore.App.Ref\8.0.17\ref\net8.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
         </Reference>
     </ItemGroup>
-    <ItemGroup>
-        <Folder Include="Features\Wallet\Commands\DeleteWallet\"/>
-        <Folder Include="Features\Wallet\Commands\UpdateWallet\"/>
-        <Folder Include="Features\Wallet\Queries\GetAllWallets\"/>
-        <Folder Include="Features\Wallet\Queries\GetWalletById\"/>
-    </ItemGroup>
 </Project>

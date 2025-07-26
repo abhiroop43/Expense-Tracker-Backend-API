@@ -20,7 +20,7 @@ public class UpdateLookupCommandHandler(
 
         if (validationResult.Errors.Count > 0)
         {
-            logger.LogWarning("Validation errors detected in Update Lookup for {0}", nameof(request));
+            logger.LogWarning("Validation errors detected for {0}", nameof(request));
             throw new BadRequestException("Validation errors", validationResult);
         }
 
@@ -28,7 +28,7 @@ public class UpdateLookupCommandHandler(
 
         if (lookup == null)
         {
-            logger.LogWarning("{0} with {1} was not foung", nameof(lookup), request.Id);
+            logger.LogWarning("{0} with {1} was not found", nameof(lookup), request.Id);
             throw new NotFoundException(nameof(lookup), request.Id);
         }
 
