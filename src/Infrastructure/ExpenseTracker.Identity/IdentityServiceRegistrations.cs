@@ -60,6 +60,7 @@ public static class IdentityServiceRegistrations
         services.AddScoped<SignInManager<ApplicationUser>>();
 
         services.AddTransient<IAuthService, AuthService>();
+        services.AddTransient<IUserService, UserService>();
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

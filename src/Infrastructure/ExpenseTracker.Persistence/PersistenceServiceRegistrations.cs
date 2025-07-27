@@ -21,6 +21,8 @@ public static class PersistenceServiceRegistrations
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<ILookupsRepository, LookupsRepository>();
+        services.AddScoped<IWalletsRepository, WalletsRepository>();
+        services.AddScoped<ITransactionsRepository, TransactionsRepository>();
 
         return services;
     }
