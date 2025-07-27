@@ -9,5 +9,7 @@ public class AuthProfile : Profile
     public AuthProfile()
     {
         CreateMap<RegistrationRequest, ApplicationUser>();
+
+        CreateMap<ApplicationUser, ApplicationUserDto>();
     }
 }

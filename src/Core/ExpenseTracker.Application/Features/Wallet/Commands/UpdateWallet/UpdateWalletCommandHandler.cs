@@ -1,4 +1,5 @@
 using AutoMapper;
+using ExpenseTracker.Application.Contracts.Identity;
 using ExpenseTracker.Application.Contracts.Persistence;
 using ExpenseTracker.Application.Exceptions;
 using MediatR;
@@ -9,11 +10,12 @@ namespace ExpenseTracker.Application.Features.Wallet.Commands.UpdateWallet;
 public class UpdateWalletCommandHandler(
     IWalletsRepository walletsRepository,
     IMapper mapper,
+    IUserService userService,
     ILogger<UpdateWalletCommandHandler> logger) : IRequestHandler<UpdateWalletCommand, Unit>
 {
     public async Task<Unit> Handle(UpdateWalletCommand request, CancellationToken cancellationToken)
     {
-        var validator = new UpdateWalletCommandValidator(walletsRepository);
+        var validator = new UpdateWalletCommandValidator(walletsRepository, userService);
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (validationResult.Errors.Count > 0)

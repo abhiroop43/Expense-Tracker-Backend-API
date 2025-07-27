@@ -1,3 +1,4 @@
+using ExpenseTracker.Application.Contracts.Identity;
 using ExpenseTracker.Application.Contracts.Persistence;
 using FluentValidation;
 
@@ -5,11 +6,13 @@ namespace ExpenseTracker.Application.Features.Wallet.Commands.UpdateWallet;
 
 public class UpdateWalletCommandValidator : AbstractValidator<UpdateWalletCommand>
 {
+    private readonly IUserService _userService;
     private readonly IWalletsRepository _walletsRepository;
 
-    public UpdateWalletCommandValidator(IWalletsRepository walletsRepository)
+    public UpdateWalletCommandValidator(IWalletsRepository walletsRepository, IUserService userService)
     {
         _walletsRepository = walletsRepository;
+        _userService = userService;
 
         RuleFor(x => x.Name)
             .NotEmpty()
@@ -24,6 +27,7 @@ public class UpdateWalletCommandValidator : AbstractValidator<UpdateWalletComman
 
     private async Task<bool> UniqueNameAsync(UpdateWalletCommand request, CancellationToken cancellationToken)
     {
-        return await _walletsRepository.IsUniqueWalletName(request.Name, cancellationToken);
+        if (string.IsNullOrEmpty(_userService.UserId)) return false;
+        return await _walletsRepository.IsUniqueWalletName(request.Name, _userService.UserId, cancellationToken);
     }
 }
