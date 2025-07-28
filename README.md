@@ -1,3 +1,5 @@
+[![build-and-test](https://github.com/abhiroop43/Expense-Tracker-Backend-API/actions/workflows/build+test.yml/badge.svg)](https://github.com/abhiroop43/Expense-Tracker-Backend-API/actions/workflows/build+test.yml)
+
 # Expense Tracker Backend API 🙄💸
 
 Welcome to the **ExpenseTracker** backend API – because who _doesn't_ want to track every penny they spend?
