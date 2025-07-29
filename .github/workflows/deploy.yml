@@ -44,5 +44,5 @@ jobs:
         uses: Azure/webapps-deploy@v3.0.1
         id: deploy-to-webapp
         with:
-          app-name: 'restaurants-api-dev'
+          app-name: 'abhiroop43-expensetracker-api'
           publish-profile: ${{ secrets.PUBLISH_PROFILE_DEV }}
