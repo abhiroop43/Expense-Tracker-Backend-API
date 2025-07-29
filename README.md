@@ -8,6 +8,10 @@ Built with .NET (because, obviously), using Clean Architecture, DDD, and CQRS �
 as our finances.
 MongoDB is our database of choice, because SQL is just too mainstream. 😏
 
+## Live Swagger (because you want to see if it actually works)
+
+[Check out the API docs in all their glory](https://abhiroop43-expensetracker-api-eea4gshuauawc0hq.uaenorth-01.azurewebsites.net/swagger/index.html) – because nothing says "production ready" like a public Swagger page.
+
 ## Features
 
 - 🚀 Blazing fast API (if you don't count cold starts)
