@@ -24,7 +24,6 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Features\Transaction\Commands\AddTransaction\"/>
         <Folder Include="Features\Transaction\Commands\DeleteTransaction\"/>
         <Folder Include="Features\Transaction\Commands\UpdateTransaction\"/>
     </ItemGroup>

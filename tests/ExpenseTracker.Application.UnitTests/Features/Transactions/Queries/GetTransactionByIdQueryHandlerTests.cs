@@ -34,7 +34,7 @@ public class GetTransactionByIdQueryHandlerTests
             Id = id,
             CreatedBy = userId,
             TransactionTypeCode = "EXP",
-            WalletId = ObjectId.GenerateNewId().ToString(),
+            WalletId = ObjectId.GenerateNewId(),
             TransactionCategoryCode = "HLT"
         };
         var dto = new TransactionDetailDto { Id = id.ToString() };
@@ -104,7 +104,7 @@ public class GetTransactionByIdQueryHandlerTests
             Id = id,
             CreatedBy = ownerId,
             TransactionTypeCode = "INC",
-            WalletId = ObjectId.GenerateNewId().ToString(),
+            WalletId = ObjectId.GenerateNewId(),
             TransactionCategoryCode = "SAL"
         };
 
