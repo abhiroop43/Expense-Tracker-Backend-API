@@ -1,4 +1,5 @@
 using AutoMapper;
+using ExpenseTracker.Application.Contracts.Identity;
 using ExpenseTracker.Application.Contracts.Persistence;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -9,13 +10,14 @@ public class
     GetAllTransactionsQueryHandler(
         ITransactionsRepository transactionsRepository,
         IMapper mapper,
+        IUserService userService,
         ILogger<GetAllTransactionsQueryHandler> logger)
     : IRequestHandler<GetAllTransactionsQuery, IReadOnlyList<TransactionListDto>>
 {
     public async Task<IReadOnlyList<TransactionListDto>> Handle(GetAllTransactionsQuery request,
         CancellationToken cancellationToken)
     {
-        var transactions = await transactionsRepository.GetAllAsync(cancellationToken);
+        var transactions = await transactionsRepository.GetTransactionsForUser(userService.UserId, cancellationToken);
 
         if (transactions.Count == 0) logger.LogWarning("No transactions found for this user");
 
