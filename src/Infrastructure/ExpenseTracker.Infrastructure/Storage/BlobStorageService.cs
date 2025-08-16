@@ -31,8 +31,7 @@ public class BlobStorageService(IOptions<BlobStorageSettings> blobStorageSetting
         if (data.CanSeek) data.Position = 0;
 
         await blobClient.UploadAsync(data, true);
-        var url = blobClient.Uri.ToString();
-        return GetBlobSasUrl(url, imageType)!;
+        return blobClient.Uri.ToString();
     }
 
     public string? GetBlobSasUrl(string? blobUrl, string imageType)

@@ -1,7 +1,9 @@
 using AutoMapper;
 using ExpenseTracker.Application.Contracts.Identity;
 using ExpenseTracker.Application.Contracts.Persistence;
+using ExpenseTracker.Application.Contracts.Storage;
 using ExpenseTracker.Application.Exceptions;
+using ExpenseTracker.Domain.Common;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -11,6 +13,7 @@ public class GetAllWalletsQueryHandler(
     IWalletsRepository walletsRepository,
     ILogger<GetAllWalletsQueryHandler> logger,
     IMapper mapper,
+    IBlobStorageService blobStorageService,
     IUserService userService) : IRequestHandler<GetAllWalletsQuery, IReadOnlyList<WalletDto>>
 {
     public async Task<IReadOnlyList<WalletDto>> Handle(GetAllWalletsQuery request, CancellationToken cancellationToken)
@@ -27,6 +30,12 @@ public class GetAllWalletsQueryHandler(
 
         if (wallets.Count == 0) logger.LogWarning("No wallets saved for this user");
 
-        return mapper.Map<IReadOnlyList<WalletDto>>(wallets);
+        var walletsDto = mapper.Map<IReadOnlyList<WalletDto>>(wallets);
+
+        foreach (var walletDto in walletsDto)
+            walletDto.ImageUrl =
+                blobStorageService.GetBlobSasUrl(walletDto.ImageUrl, Constants.WalletImageTypeCode);
+
+        return walletsDto;
     }
 }
