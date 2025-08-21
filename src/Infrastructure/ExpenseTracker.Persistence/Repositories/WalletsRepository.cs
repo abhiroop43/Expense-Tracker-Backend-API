@@ -2,6 +2,7 @@ using ExpenseTracker.Application.Contracts.Persistence;
 using ExpenseTracker.Domain;
 using ExpenseTracker.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
 
 namespace ExpenseTracker.Persistence.Repositories;
 
@@ -25,5 +26,17 @@ public class WalletsRepository(ExpenseDbContext dbContext) : GenericRepository<W
                 x => x.Name.ToLower() == name.ToLower() && x.CreatedBy == userId, cancellationToken);
 
         return wallet == null;
+    }
+
+    public async Task<bool> IsWalletPresentForUser(ObjectId walletId, string userId,
+        CancellationToken cancellationToken)
+    {
+        if (DbContext.Wallets == null) return false;
+
+        var wallet =
+            await DbContext.Wallets.FirstOrDefaultAsync(x => x.Id == walletId && x.CreatedBy == userId,
+                cancellationToken);
+
+        return wallet != null;
     }
 }

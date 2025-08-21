@@ -1,6 +1,7 @@
 using ExpenseTracker.Application.Features.Wallet.Commands.AddWallet;
 using ExpenseTracker.Application.Features.Wallet.Commands.DeleteWallet;
 using ExpenseTracker.Application.Features.Wallet.Commands.UpdateWallet;
+using ExpenseTracker.Application.Features.Wallet.Commands.UploadWalletLogo;
 using ExpenseTracker.Application.Features.Wallet.Queries.GetAllWallets;
 using ExpenseTracker.Application.Features.Wallet.Queries.GetWalletById;
 using MediatR;
@@ -61,5 +62,22 @@ public class WalletsController(IMediator mediator) : ControllerBase
     {
         await mediator.Send(new DeleteWalletCommand { Id = ObjectId.Parse(id) });
         return NoContent();
+    }
+
+    [HttpPost("uploadImage")]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(string))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UploadImage(IFormFile file)
+    {
+        await using var stream = file.OpenReadStream();
+        var command = new UploadWalletLogoCommand
+        {
+            File = stream,
+            FileName = file.FileName
+        };
+
+        var imageUrl = await mediator.Send(command);
+        return Created(nameof(UploadImage), new { ImageUrl = imageUrl });
     }
 }

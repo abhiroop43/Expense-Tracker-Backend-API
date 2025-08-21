@@ -1,7 +1,9 @@
 using AutoMapper;
 using ExpenseTracker.Application.Contracts.Identity;
 using ExpenseTracker.Application.Contracts.Persistence;
+using ExpenseTracker.Application.Contracts.Storage;
 using ExpenseTracker.Application.Exceptions;
+using ExpenseTracker.Domain.Common;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -11,6 +13,7 @@ public class GetWalletByIdQueryHandler(
     IWalletsRepository walletsRepository,
     ILogger<GetWalletByIdQueryHandler> logger,
     IUserService userService,
+    IBlobStorageService blobStorageService,
     IMapper mapper) : IRequestHandler<GetWalletByIdQuery, WalletDetailDto>
 {
     public async Task<WalletDetailDto> Handle(GetWalletByIdQuery request, CancellationToken cancellationToken)
@@ -29,6 +32,10 @@ public class GetWalletByIdQueryHandler(
             throw new ForbiddenException("You are not authorized to access this resource");
         }
 
-        return mapper.Map<WalletDetailDto>(wallet);
+        var walletDto = mapper.Map<WalletDetailDto>(wallet);
+
+        walletDto.ImageUrl = blobStorageService.GetBlobSasUrl(walletDto.ImageUrl, Constants.WalletImageTypeCode);
+
+        return walletDto;
     }
 }

@@ -27,7 +27,7 @@ public class GetAllTransactionsQueryHandlerTests
     {
         // Arrange
         var userId = Guid.NewGuid().ToString();
-        var walletId = ObjectId.GenerateNewId().ToString();
+        var walletId = ObjectId.GenerateNewId();
         var transactions = new List<Transaction>
         {
             new()

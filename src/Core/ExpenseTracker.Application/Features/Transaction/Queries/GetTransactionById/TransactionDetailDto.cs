@@ -5,8 +5,9 @@ public class TransactionDetailDto
     public string? Id { get; set; }
     public string? TransactionTypeCode { get; set; }
     public string? TransactionCategoryCode { get; set; }
+    public string? WalletId { get; set; }
     public DateTime? TransactionDate { get; set; }
-    public decimal Amount { get; set; }
+    public decimal? Amount { get; set; }
 
     public DateTime? CreatedDate { get; set; }
     public string? CreatedBy { get; set; }

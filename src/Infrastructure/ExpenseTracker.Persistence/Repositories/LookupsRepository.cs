@@ -21,6 +21,12 @@ public class LookupsRepository(ExpenseDbContext dbContext) : GenericRepository<L
         return false;
     }
 
+    public async Task<bool> LookupExists(string lookupCode, string lookupTypeCode,
+        CancellationToken cancellation = default)
+    {
+        return !await IsUniqueLookup(lookupCode, lookupTypeCode, cancellation);
+    }
+
     public async Task<IReadOnlyList<Lookup>> GetLookupsByType(string lookupTypeCode,
         CancellationToken cancellation = default)
     {
