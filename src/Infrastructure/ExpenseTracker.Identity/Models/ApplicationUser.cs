@@ -5,14 +5,15 @@ namespace ExpenseTracker.Identity.Models;
 
 public class ApplicationUser : MongoIdentityUser<ObjectId>
 {
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
-
-    public ApplicationUser() : base()
+    public ApplicationUser()
     {
     }
 
     public ApplicationUser(string userName, string email) : base(userName, email)
     {
     }
+
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public string? FirebaseUid { get; set; }
 }
