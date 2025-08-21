@@ -7,7 +7,8 @@ using ExpenseTracker.Application.Contracts.Identity;
 using ExpenseTracker.Application.Models.Identity;
 using ExpenseTracker.Identity.Models;
 using ExpenseTracker.Identity.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,13 @@ public static class IdentityServiceRegistrations
 
         var connectionString = configuration.GetConnectionString("ExpenseTrackerConnection");
         var databaseName = configuration.GetSection("DatabaseName").Value;
+
+        var base64EncodedBytes = Convert.FromBase64String(Env.GetString("FIREBASE_SERVICE_ACC"));
+        FirebaseApp.Create(new AppOptions
+        {
+            Credential = GoogleCredential.FromJson(Encoding.UTF8.GetString(base64EncodedBytes)),
+            ProjectId = "abhiroop43-fl-exp-trck"
+        });
 
         var mongoDbIdentityConfiguration = new MongoDbIdentityConfiguration
         {
@@ -66,8 +74,8 @@ public static class IdentityServiceRegistrations
 
         services.AddAuthentication(options =>
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = "BearerOrFirebase";
+                options.DefaultChallengeScheme = "BearerOrFirebase";
             })
             .AddJwtBearer(options =>
             {
@@ -84,6 +92,8 @@ public static class IdentityServiceRegistrations
                         Encoding.UTF8.GetBytes(Env.GetString("JWT_SECRET_KEY")))
                 };
             });
+        // .AddScheme<FirebaseAuthenticationOptions,
+        //     FirebaseAuthenticationHandler>("Firebase", options => { });
 
         return services;
     }
