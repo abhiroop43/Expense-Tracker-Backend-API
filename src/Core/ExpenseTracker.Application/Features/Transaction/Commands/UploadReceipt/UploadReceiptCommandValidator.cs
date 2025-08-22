@@ -3,15 +3,15 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 using SkiaSharp;
 
-namespace ExpenseTracker.Application.Features.Wallet.Commands.UploadWalletLogo;
+namespace ExpenseTracker.Application.Features.Transaction.Commands.UploadReceipt;
 
-public class UploadWalletLogoCommandValidator : AbstractValidator<UploadWalletLogoCommand>
+public class UploadReceiptCommandValidator : AbstractValidator<UploadReceiptCommand>
 {
     private const int MaxFileSizeInKb = 200;
     private readonly ILogger _logger;
     private readonly IUserService _userService;
 
-    public UploadWalletLogoCommandValidator(ILogger logger, IUserService userService)
+    public UploadReceiptCommandValidator(ILogger logger, IUserService userService)
     {
         _logger = logger;
         _userService = userService;
@@ -21,12 +21,12 @@ public class UploadWalletLogoCommandValidator : AbstractValidator<UploadWalletLo
             .WithMessage("Only images of type jpg, jpeg or png are allowed");
     }
 
-    private static bool MustBeLessThanLimit(UploadWalletLogoCommand command)
+    private static bool MustBeLessThanLimit(UploadReceiptCommand command)
     {
         return command.File.Length <= MaxFileSizeInKb * 1024;
     }
 
-    private bool MustBeAnImage(UploadWalletLogoCommand command)
+    private bool MustBeAnImage(UploadReceiptCommand command)
     {
         try
         {

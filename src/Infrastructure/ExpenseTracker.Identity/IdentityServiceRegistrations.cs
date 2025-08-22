@@ -9,6 +9,7 @@ using ExpenseTracker.Identity.Models;
 using ExpenseTracker.Identity.Services;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -74,8 +75,8 @@ public static class IdentityServiceRegistrations
 
         services.AddAuthentication(options =>
             {
-                options.DefaultAuthenticateScheme = "BearerOrFirebase";
-                options.DefaultChallengeScheme = "BearerOrFirebase";
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(options =>
             {
@@ -92,8 +93,6 @@ public static class IdentityServiceRegistrations
                         Encoding.UTF8.GetBytes(Env.GetString("JWT_SECRET_KEY")))
                 };
             });
-        // .AddScheme<FirebaseAuthenticationOptions,
-        //     FirebaseAuthenticationHandler>("Firebase", options => { });
 
         return services;
     }

@@ -1,3 +1,4 @@
+using ExpenseTracker.Application.Features.Transaction.Commands.UploadReceipt;
 using ExpenseTracker.Application.Features.Transaction.Queries.GetAllTransactions;
 using ExpenseTracker.Application.Features.Transaction.Queries.GetTransactionById;
 using MediatR;
@@ -28,5 +29,22 @@ public class TransactionsController(IMediator mediator) : ControllerBase
     {
         var transaction = await mediator.Send(new GetTransactionByIdQuery { Id = ObjectId.Parse(id) });
         return Ok(transaction);
+    }
+
+    [HttpPost("uploadReceipt")]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(string))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UploadReceipt(IFormFile file)
+    {
+        await using var stream = file.OpenReadStream();
+        var command = new UploadReceiptCommand
+        {
+            File = stream,
+            FileName = file.FileName
+        };
+
+        var imageUrl = await mediator.Send(command);
+        return Created(nameof(UploadReceipt), new { ImageUrl = imageUrl });
     }
 }
