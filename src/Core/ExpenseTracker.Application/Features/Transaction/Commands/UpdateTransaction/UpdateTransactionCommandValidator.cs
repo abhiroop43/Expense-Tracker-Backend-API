@@ -4,22 +4,21 @@ using ExpenseTracker.Domain.Common;
 using FluentValidation;
 using MongoDB.Bson;
 
-namespace ExpenseTracker.Application.Features.Transaction.Commands.AddTransaction;
+namespace ExpenseTracker.Application.Features.Transaction.Commands.UpdateTransaction;
 
-public class AddTransactionCommandValidator : AbstractValidator<AddTransactionCommand>
+public class UpdateTransactionCommandValidator : AbstractValidator<UpdateTransactionCommand>
 {
     private const string RequiredFieldErrorMessage = "{PropertyName} is required";
     private readonly ILookupsRepository _lookupsRepository;
     private readonly IUserService _userService;
     private readonly IWalletsRepository _walletsRepository;
 
-    public AddTransactionCommandValidator(ILookupsRepository lookupsRepository, IWalletsRepository walletsRepository,
-        IUserService userService)
+    public UpdateTransactionCommandValidator(IUserService userService, IWalletsRepository walletsRepository,
+        ILookupsRepository lookupsRepository)
     {
-        _lookupsRepository = lookupsRepository;
-        _walletsRepository = walletsRepository;
         _userService = userService;
-
+        _walletsRepository = walletsRepository;
+        _lookupsRepository = lookupsRepository;
 
         RuleFor(x => x.TransactionTypeCode)
             .NotEmpty()
@@ -50,9 +49,9 @@ public class AddTransactionCommandValidator : AbstractValidator<AddTransactionCo
             .WithMessage("{PropertyName} must be greater than 0");
     }
 
-    private async Task<bool> WalletMustExistAsync(string walletId, CancellationToken cancellationToken)
+    private async Task<bool> WalletMustExistAsync(ObjectId? walletId, CancellationToken cancellationToken)
     {
-        return await _walletsRepository.IsWalletPresentForUser(ObjectId.Parse(walletId), _userService.UserId!,
+        return await _walletsRepository.IsWalletPresentForUser(walletId!.Value, _userService.UserId!,
             cancellationToken);
     }
 
